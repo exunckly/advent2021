@@ -63,5 +63,6 @@ part2a <- sum(na.omit(my_data_offset2 - my_data) > 0)
 #Revised part 2 solution - take 2
 # The diff function allows you to specify an offset, meaning that the syntax can be more or less identical to the part 1 solution
 
+window_len <- 3
 part2b <- sum(diff(my_data, lag = window_len) > 0)
 
