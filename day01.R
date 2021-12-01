@@ -48,7 +48,7 @@ my_data_trunc <- my_data[1:new_len]
 part2 <- sum((my_data_offset - my_data_trunc) > 0)
 
 
-# Notes after looking at others' solutions
+####### Notes after looking at others' solutions #######
 
 #Revised part 2 solution - take 1
 
@@ -60,9 +60,22 @@ window_len <- 3
 my_data_offset2 <- dplyr::lead(my_data, window_len)
 part2a <- sum(na.omit(my_data_offset2 - my_data) > 0)
 
+
 #Revised part 2 solution - take 2
 # The diff function allows you to specify an offset, meaning that the syntax can be more or less identical to the part 1 solution
 
 window_len <- 3
 part2b <- sum(diff(my_data, lag = window_len) > 0)
+
+
+# Revised part 2 solution - take 3
+# Turns out you can do arithmetic in square brackets by putting it inside round brackets
+# So my original solution could have been expressed like so:
+
+window_len <- 3
+my_data_offset <- my_data[(window_len + 1):(length(my_data))]
+my_data_trunc <- my_data[1:(length(my_data) - window_len)]
+
+part2c <- sum((my_data_offset - my_data_trunc) > 0)
+
 
