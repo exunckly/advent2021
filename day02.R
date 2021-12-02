@@ -1,4 +1,4 @@
-# Day 1: Advent of Code 2020
+# Day 2: Advent of Code 2020
 
 library(here)
 library(tidyverse)
