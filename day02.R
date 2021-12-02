@@ -55,8 +55,8 @@ part2_df <- my_data %>%
   ungroup() %>%
   # Fill aim down and replace initial NAs with 0
   fill(aim, .direction = "down") %>%
-  replace_na(list (aim =  0)) %>%
-  # Calculate change in position row by row
+  replace_na(list (aim = 0)) %>%
+  # Calculate change in position for each instruction
   mutate(delta_x = ifelse(axis == "x", mag, 0)) %>%
   mutate(delta_z = ifelse(axis == "x", mag*aim, 0))
 
