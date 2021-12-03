@@ -7,7 +7,7 @@ library(tidyverse)
 
 # We are given some binary numbers and asked to find the most common digit in each position, and the inverse (least common digit)
 # Then put those digits together to make gamma (most common) and epsilon (least common)
-# Numbers al contain nthe same number of digits, but number of digits varies betweebn test and actual input
+# Numbers all contain the same number of digits, but number of digits varies between test and actual input
 # Final answer is gamma * epsilon, in decimal
 
 
@@ -15,10 +15,9 @@ library(tidyverse)
 #input_filename <- "day03_test.txt"
 input_filename <- "day03_input.txt"
 
-# The most common value is the mode, this feels more straightforward than summing each column and seeing if the answwer is higher than 
-
+# The most common value is the mode
 # R does not have a built in mode function
-# This one finds the mode of a vector. If there is a tieit returns the largest value by default,
+# This function finds the mode of a vector. If there is a tie it returns the largest value by default,
 # but we can also return the smallest value if we wish 
 my_mode <- function(v, keep = "hi") {
   uniqv <- unique(v)
@@ -29,6 +28,13 @@ my_mode <- function(v, keep = "hi") {
   } else if(keep == "low"){
     return(min(my_modes))
   }
+}
+
+# Function converts a vector of 1s and zeros to an integer
+bin_vec_to_int <- function(x){
+  # We don't test if input contains only 1s and 0s as life is too short
+  paste(x, collapse = "") %>%
+    strtoi(base = 2)
 }
 
 # Prepare data
@@ -51,18 +57,15 @@ gamma_vec <- my_data %>%
 epsilon_vec <- +(!gamma_vec)
 
 # Do the maths
-gamma <- paste(gamma_vec, collapse = "") %>%
-  strtoi(base = 2)
-
-epsilon <- paste(epsilon_vec, collapse = "") %>%
-  strtoi(base = 2)
-
+gamma <- bin_vec_to_int(gamma_vec)
+epsilon <- bin_vec_to_int(epsilon_vec)
 part1 <- gamma * epsilon
 part1
 
 
 # Part 2
-# Now we have to find the most common (and least common) value in each position and filter to keep only rows containing that value
+# Now we have to find the most common (O2) and least common (CO2) value in each position and filter to keep only rows containing that value
+# in that position
 # We stop when there is only one row left
 
 # if there is a tie keep 1 for O2 and 0 for CO2
@@ -89,11 +92,8 @@ while(i <= length(my_data)){
   i <- i + 1
 }
 
-o2_val<- paste(o2_data, collapse = "") %>%
-  strtoi(base = 2)
-
-co2_val<- paste(co2_data, collapse = "") %>%
-  strtoi(base = 2)
-
+# Do the maths
+o2_val<- bin_vec_to_int(o2_data)
+co2_val<- bin_vec_to_int(co2_data)
 part2 <- o2_val * co2_val
 part2
