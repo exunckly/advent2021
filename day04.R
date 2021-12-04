@@ -3,11 +3,6 @@
 library(here)
 library(tidyverse)
 
-# Part 1
-
-#
-
-# Parse input
 #input_filename <- "day04_test.txt"
 input_filename <- "day04_input.txt"
 
@@ -19,10 +14,6 @@ input_filename <- "day04_input.txt"
 # Matrix of matched locations
 # Matrix of winning locations (e.g. 1,2,3,4,5   1,6,11,16,21)
 
-# Bingo card dimensions
-# Will assume here that bingo cards are always square - seems reasonable here given the input data
-grid_x <- 5
-grid_y <-5
 
 # Function to generate locations of all winning lines of an x by y bingo card (e.g. 1,2,3,4,5   1,6,11,16,21)
 # Written for square cards but may need to revisit code on a later day
@@ -69,12 +60,15 @@ bingo_cards_reformatted <- messy %>%
   read_csv(col_names = FALSE) %>%
   as.matrix()
 
+# Find dimensions of a card (assumes square but x and y in case it needs to be modified another time)
+grid_x <- dim(bingo_cards_reformatted)[2]^ 0.5
+grid_y <- grid_x
+
 # Generate winning lines 
 my_winlines <- gen_win_lines(grid_x, grid_y)
 
 # Set up matrix to hold indices of where each called number is on each card
 winning_board <- NA
-
 
 # Function to find winning cards, in order
 # Returns array of card ID, number called and sum of unmatched numbers
