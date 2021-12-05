@@ -52,6 +52,9 @@ my_data <- read_csv(here("data", input_filename), col_names = c("x1", "muddle", 
 my_data <- my_data + (1-min(my_data))  
 
 # Part 1
+# Wrote the horizontal/vertical part of the function above then realised I could use R's x[a:b:] notation
+# to fill in a grid similar to the one in the problemS
+
 # Keep rows that contain horizontal or vertical lines
 p1_data <- my_data %>%
   filter(x1 == x2 | y1 == y2)
@@ -76,7 +79,8 @@ part1
 # An entry like 1,1 -> 3,3 covers points 1,1, 2,2, and 3,3
 # We need to do the same again - find all points where 2 lines overlap
 
-# Generate co-ordinates of all points on lines then count how many times each co-ordinate appears
+# Use function above to generate co-ordinates of all points on lines then count how many times each co-ordinate appears
+# Loop through lines and combine the points into one 2-column matrix
 for(i in seq_along(my_data$x1)){
   this_line <- line_points(my_data$x1[i], my_data$y1[i], my_data$x2[i], my_data$y2[i])
   if (i == 1){
@@ -86,6 +90,7 @@ for(i in seq_along(my_data$x1)){
   }
 }
 
+# Count the number of times each point appears and keep those which appear at least twice
 all_lines_count <- as_tibble(all_lines) %>%
   group_by(x_vals, y_vals) %>%
   tally() %>%
