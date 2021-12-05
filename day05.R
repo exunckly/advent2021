@@ -10,7 +10,7 @@ input_filename <- "day05_input.txt"
 # Consider only the horizontal and vertical lines
 # At how many locations do at least 2 lines coincide
 
-
+# Function returns all points along a horizontal, vertical or diagonal line
 line_points <- function(x1, y1, x2, y2){
   if(x1 == x2){
     y_vals <- y1:y2
@@ -51,15 +51,12 @@ my_data <- read_csv(here("data", input_filename), col_names = c("x1", "muddle", 
 # R indexes from 1
 my_data <- my_data + (1-min(my_data))  
 
-
-  
 # Part 1
 # Keep rows that contain horizontal or vertical lines
 p1_data <- my_data %>%
   filter(x1 == x2 | y1 == y2)
 
-
-# Set up grid to track lines
+# Use R's index notation to fill in a grid with lines
 my_grid <- matrix(data = 0,
                   nrow = max(c(p1_data$y1, p1_data$y2)),
                   ncol = max(c(p1_data$x1, p1_data$x2)))
@@ -79,8 +76,7 @@ part1
 # An entry like 1,1 -> 3,3 covers points 1,1, 2,2, and 3,3
 # We need to do the same again - find all points where 2 lines overlap
 
-# Could generate co-ordinates then count how many times they appear?
-
+# Generate co-ordinates of all points on lines then count how many times each co-ordinate appears
 for(i in seq_along(my_data$x1)){
   this_line <- line_points(my_data$x1[i], my_data$y1[i], my_data$x2[i], my_data$y2[i])
   if (i == 1){
